@@ -1,6 +1,7 @@
 package com.clone.pinterest.domain;
 
 
+import com.clone.pinterest.dto.PinRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -29,4 +30,12 @@ public class Pin {
 
     @ManyToOne
     private User user;
+
+    public void edit(PinRequestDto pinRequestDto)
+    {
+        this.pinContent = pinRequestDto.getPinContent();
+        this.pinTitle = pinRequestDto.getPinTitle();
+        this.pinImage = pinRequestDto.getPinUrl();
+        this.pinUrl = pinRequestDto.getPinUrl();
+    }
 }

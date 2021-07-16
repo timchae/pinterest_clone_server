@@ -1,6 +1,7 @@
 package com.clone.pinterest.domain;
 
 
+import com.clone.pinterest.dto.BoardRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,9 +17,16 @@ public class Board {
     @Id
     private Long boardId;
 
+    @Column(nullable = false)
+    private String boardTitle;
+
     @OneToMany
     private List<Pin> pin;
 
     @ManyToOne
     private User user;
+
+    public Board(BoardRequestDto boardRequestDto){
+        this.boardTitle = boardRequestDto.getBoardTitle();
+    }
 }

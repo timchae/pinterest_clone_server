@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -20,4 +21,7 @@ public class Comments {
 
     @ManyToOne
     private User user;
+
+    @ManyToOne
+    private Pin pin;
 }
