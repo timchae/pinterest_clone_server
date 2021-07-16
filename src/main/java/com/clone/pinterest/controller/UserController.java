@@ -1,5 +1,6 @@
 package com.clone.pinterest.controller;
 
+import com.clone.pinterest.dto.SignupRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
