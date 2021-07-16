@@ -3,12 +3,6 @@ HELP.md
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
-!**/src/test/**/build/
-
-application.properties
-
-### STS ###
-.apt_generated
 .classpath
 .factorypath
 .project
@@ -37,3 +31,9 @@ out/
 
 ### VS Code ###
 .vscode/
+!**/src/test/**/build/
+
+application.properties
+
+### STS ###
+.apt_generated
