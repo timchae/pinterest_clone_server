@@ -23,5 +23,5 @@ public class UserController {
         userService.registerUser(signupRequestDto);
     }
 
-    
+
 }
