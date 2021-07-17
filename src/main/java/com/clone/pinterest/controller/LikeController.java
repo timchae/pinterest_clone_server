@@ -15,13 +15,13 @@ public class LikeController {
     private final LikeService likeService;
 
     // 좋아요 추가
-    @PostMapping("/like/{id}")
+    @PostMapping("/user/like/{id}")
     public void addLike(@PathVariable Long id){
         likeService.addLike(id);
     }
 
     // 좋아요 삭제
-    @DeleteMapping("/like/{id}")
+    @DeleteMapping("/user/like/{id}")
     public void deleteLike(@PathVariable Long id){
         likeService.delete(id);
     }

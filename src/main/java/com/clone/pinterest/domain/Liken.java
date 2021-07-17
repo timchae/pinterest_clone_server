@@ -12,7 +12,7 @@ public class Liken {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long likenId;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Long userId;
 
     @Column(nullable = false)

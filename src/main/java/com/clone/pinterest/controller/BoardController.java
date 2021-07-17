@@ -5,7 +5,6 @@ import com.clone.pinterest.domain.Board;
 import com.clone.pinterest.dto.BoardRequestDto;
 import com.clone.pinterest.service.BoardService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,4 +20,5 @@ public class BoardController {
     public Board createBoard(@RequestBody BoardRequestDto boardRequestDto){
         return boardService.createBoard(boardRequestDto);
     }
+
 }
