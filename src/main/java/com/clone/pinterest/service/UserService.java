@@ -1,13 +1,12 @@
 package com.clone.pinterest.service;
 
 import com.clone.pinterest.domain.User;
-import com.clone.pinterest.dto.SignupRequestDto;
-import com.clone.pinterest.dto.UserRequestDto;
+import com.clone.pinterest.dto.request.SignupRequestDto;
+import com.clone.pinterest.dto.request.UserRequestDto;
 import com.clone.pinterest.exception.ApiRequestException;
 import com.clone.pinterest.repository.UserRepository;
 import com.clone.pinterest.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
