@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class BoardController {
 
-    BoardService boardService;
+    private final BoardService boardService;
 
     // 보드 생성
     @PostMapping("/user/board")

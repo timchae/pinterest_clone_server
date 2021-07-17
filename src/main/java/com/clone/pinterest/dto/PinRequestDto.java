@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class PinRequestDto {
-    private Long pinId;
+
     private String pinTitle;
     private String pinContent;
     private String pinImage;

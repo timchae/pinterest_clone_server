@@ -24,4 +24,5 @@ public class Comments {
 
     @ManyToOne
     private Pin pin;
+
 }

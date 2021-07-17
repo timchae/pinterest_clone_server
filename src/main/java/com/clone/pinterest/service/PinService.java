@@ -3,6 +3,7 @@ package com.clone.pinterest.service;
 
 import com.clone.pinterest.domain.Comments;
 import com.clone.pinterest.domain.Pin;
+import com.clone.pinterest.domain.User;
 import com.clone.pinterest.dto.PinRequestDto;
 import com.clone.pinterest.repository.CommentsRepository;
 import com.clone.pinterest.repository.PinRepository;
@@ -16,14 +17,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PinService {
 
-    private PinRepository pinRepository;
-    private CommentsRepository commentsRepository;
+    private final PinRepository pinRepository;
+    private final CommentsRepository commentsRepository;
 
     //pin 내용
     public Pin findPinByID(Long id) {
-        return pinRepository.findById(id).orElseThrow(
+
+        Pin pin = pinRepository.findById(id).orElseThrow(
                 ()-> new NullPointerException("NO PiN ID")
         );
+        Long commentNum = commentsRepository.countByPin_PinId(pin.getPinId());
+        pin.setCommentNum(commentNum);
+        return pin;
     }
 
     // pin의 댓글 찾기
@@ -45,5 +50,11 @@ public class PinService {
     public Long deletePin(Long id) {
         pinRepository.deleteById(id);
         return id;
+    }
+
+    // pin 생성
+    public Pin createPin(PinRequestDto pinRequestDto) {
+        Pin pin = new Pin(pinRequestDto);
+        return pinRepository.save(pin);
     }
 }

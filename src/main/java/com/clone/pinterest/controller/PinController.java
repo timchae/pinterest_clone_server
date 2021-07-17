@@ -14,8 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PinController {
 
-
-    private PinService pinService;
+    private final PinService pinService;
 
     // pin 내용 가져오기 api
     @GetMapping("/pin/{id}")
@@ -27,6 +26,12 @@ public class PinController {
     @GetMapping("/pin/comment/{id}")
     public List<Comments> pinComment(@PathVariable Long id){
         return pinService.findCommentById(id);
+    }
+
+    //pin 생성 api
+    @PostMapping("/user/pin")
+    public Pin createPin(@RequestBody PinRequestDto pinRequestDto){
+        return pinService.createPin(pinRequestDto);
     }
 
     // pin 내용 수정 api

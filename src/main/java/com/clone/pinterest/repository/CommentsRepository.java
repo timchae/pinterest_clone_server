@@ -11,4 +11,5 @@ import java.util.List;
 public interface CommentsRepository extends JpaRepository<Comments, Long> {
 
     List<Comments> findAllByPin_PinId(Long pinId);
+    Long countByPin_PinId(Long pinId);
 }

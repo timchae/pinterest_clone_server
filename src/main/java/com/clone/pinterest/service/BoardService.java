@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class BoardService {
 
-    private BoardRepository boardRepository;
+    private final BoardRepository boardRepository;
 
     public Board createBoard(BoardRequestDto boardRequestDto){
         Board board = new Board(boardRequestDto);
