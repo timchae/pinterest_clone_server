@@ -54,4 +54,13 @@ public class Pin extends Timestamped {
         this.pinImage = pinRequestDto.getPinImage();
         this.pinUrl = pinRequestDto.getPinUrl();
     }
+
+    public Pin(PinRequestDto pinRequestDto, User user) {
+        this.pinTitle = pinRequestDto.getPinTitle();
+        this.pinContent = pinRequestDto.getPinContent();
+        this.pinImage = pinRequestDto.getPinImage();
+        this.pinUrl = pinRequestDto.getPinUrl();
+        this.user = user;
+    }
 }
+

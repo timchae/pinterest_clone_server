@@ -16,7 +16,7 @@ public class BoardController {
     private final BoardService boardService;
 
     // 보드 생성
-    @PostMapping("/user/board")
+    @PostMapping("/board")
     public Board createBoard(@RequestBody BoardRequestDto boardRequestDto){
         return boardService.createBoard(boardRequestDto);
     }
