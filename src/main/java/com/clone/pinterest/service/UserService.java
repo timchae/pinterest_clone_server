@@ -3,10 +3,13 @@ package com.clone.pinterest.service;
 import com.clone.pinterest.domain.User;
 import com.clone.pinterest.dto.SignupRequestDto;
 import com.clone.pinterest.dto.UserRequestDto;
+import com.clone.pinterest.exception.ApiRequestException;
 import com.clone.pinterest.repository.UserRepository;
+import com.clone.pinterest.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,6 +22,8 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManagerBuilder authenticationManagerBuilder;
+    private final JwtTokenProvider jwtTokenProvider;
 
     public void registerUser(SignupRequestDto signupRequestDto){
         String username = signupRequestDto.getUserName();
@@ -55,7 +60,7 @@ public class UserService {
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(userRequestDto.getUserName(),userRequestDto.getPassword());
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-        return jwtTokenProvider.createToken(authentication);
+        return jwtTokenProvider.makeJwtToken(authentication);
 
     }
 
