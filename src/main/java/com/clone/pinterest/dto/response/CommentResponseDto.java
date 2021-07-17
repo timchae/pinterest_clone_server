@@ -1,4 +1,4 @@
-package com.clone.pinterest.dto;
+package com.clone.pinterest.dto.response;
 
 
 import com.clone.pinterest.domain.Comments;

@@ -1,19 +1,20 @@
 package com.clone.pinterest.domain;
 
 
-import com.clone.pinterest.dto.CommentRequestDto;
+import com.clone.pinterest.dto.request.CommentRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
+
 
 @Entity
 @NoArgsConstructor
 @Getter
 @Setter
-public class Comments {
+public class Comments extends Timestamped {
+
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id

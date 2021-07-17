@@ -1,4 +1,4 @@
-package com.clone.pinterest.dto;
+package com.clone.pinterest.dto.request;
 
 import lombok.Getter;
 import lombok.Setter;

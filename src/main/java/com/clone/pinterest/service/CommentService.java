@@ -3,8 +3,8 @@ package com.clone.pinterest.service;
 
 import com.clone.pinterest.domain.Comments;
 import com.clone.pinterest.domain.Pin;
-import com.clone.pinterest.dto.CommentRequestDto;
-import com.clone.pinterest.dto.CommentResponseDto;
+import com.clone.pinterest.dto.request.CommentRequestDto;
+import com.clone.pinterest.dto.response.CommentResponseDto;
 import com.clone.pinterest.repository.CommentsRepository;
 import com.clone.pinterest.repository.LikenRepository;
 import com.clone.pinterest.repository.PinRepository;

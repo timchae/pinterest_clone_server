@@ -2,7 +2,7 @@ package com.clone.pinterest.controller;
 
 
 import com.clone.pinterest.domain.Board;
-import com.clone.pinterest.dto.BoardRequestDto;
+import com.clone.pinterest.dto.request.BoardRequestDto;
 import com.clone.pinterest.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;

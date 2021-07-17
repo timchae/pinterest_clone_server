@@ -1,8 +1,8 @@
 package com.clone.pinterest.controller;
 
 import com.clone.pinterest.domain.Comments;
-import com.clone.pinterest.dto.CommentRequestDto;
-import com.clone.pinterest.dto.CommentResponseDto;
+import com.clone.pinterest.dto.request.CommentRequestDto;
+import com.clone.pinterest.dto.response.CommentResponseDto;
 import com.clone.pinterest.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

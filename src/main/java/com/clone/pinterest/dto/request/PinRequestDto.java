@@ -1,19 +1,17 @@
-package com.clone.pinterest.dto;
+package com.clone.pinterest.dto.request;
 
-
-import com.clone.pinterest.domain.User;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
 public class PinRequestDto {
-
     private String pinTitle;
     private String pinContent;
     private String pinImage;
     private String pinUrl;
-    private User user;
 }
