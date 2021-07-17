@@ -2,9 +2,12 @@ package com.clone.pinterest.service;
 
 import com.clone.pinterest.domain.User;
 import com.clone.pinterest.dto.SignupRequestDto;
+import com.clone.pinterest.dto.UserRequestDto;
 import com.clone.pinterest.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -48,7 +51,13 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public String makeJwtToken(UserRequestDto userRequestDto){
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(userRequestDto.getUserName(),userRequestDto.getPassword());
+        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+        return jwtTokenProvider.createToken(authentication);
 
+    }
 
 
 }

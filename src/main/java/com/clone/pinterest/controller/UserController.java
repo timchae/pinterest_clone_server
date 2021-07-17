@@ -18,7 +18,7 @@ public class UserController {
     //로그인
     @PostMapping("/user/login")
     public String userlogin(@RequestBody UserRequestDto userRequestDto){
-        return userService.createToken(userRequestDto);
+        return userService.makeJwtToken(userRequestDto);
     }
 
     //회원가입
