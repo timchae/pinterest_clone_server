@@ -24,19 +24,19 @@ public class CommentController {
 
 
     // pin 댓글 작성
-    @PostMapping("/user/pin/comment/{id}")
+    @PostMapping("/pin/comment/{id}")
     public Comments createComment(@PathVariable Long id, @RequestBody CommentRequestDto commentRequestDto){
         return commentService.createComment(id, commentRequestDto);
     }
 
     // pin 댓글 삭제
-    @DeleteMapping("/user/pin/comment/{id}")
+    @DeleteMapping("/pin/comment/{id}")
     public Long deleteComment(@PathVariable Long id){
         return commentService.deleteComment(id);
     }
 
     // pin 댓글 수정
-    @PutMapping("/user/pin/comment/{id]")
+    @PutMapping("/pin/comment/{id]")
     public Comments editComment(@PathVariable Long id,@RequestBody CommentRequestDto commentRequestDto){
         return commentService.editComment(id, commentRequestDto);
     }

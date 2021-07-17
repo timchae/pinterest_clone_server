@@ -29,27 +29,21 @@ public class PinController {
     }
 
     //pin 생성 api
-    @PostMapping("/user/pin")
+    @PostMapping("/pin")
     public Pin createPin(@RequestBody PinRequestDto pinRequestDto){
         return pinService.createPin(pinRequestDto);
     }
 
     // pin 내용 수정 api
-    @PutMapping("/user/pin/{id}")
+    @PutMapping("/pin/{id}")
     public Pin pinEdit(@PathVariable Long id, @RequestBody PinRequestDto pinRequestDto){
         return pinService.editPin(id,pinRequestDto);
     }
 
     // pin 삭제 api
-    @DeleteMapping("/user/pin/{id}")
+    @DeleteMapping("/pin/{id}")
     public Long pinDelete(@PathVariable Long id){
         return pinService.deletePin(id);
-    }
-
-    // 핀 작성
-    @PostMapping("/api/pin")
-    public Pin creatPin(@RequestBody PinRequestDto pinRequestDto ) {
-        return pinService.creatPin(pinRequestDto);
     }
 
     // 핀 목록 전체 조회
@@ -58,11 +52,6 @@ public class PinController {
         return pinService.readPin();
     }
 
-    // 핀 상세 조회
-    @GetMapping("/api/pin/{pinId}")
-    public PinDetailResponseDto readDetail(@PathVariable Long pinId) {
-        return pinService.readDetail(pinId);
-    }
 
     // 핀 특정 조회(내가 쓴 핀)
 //    @GetMapping("/api/pin/{userName}")
