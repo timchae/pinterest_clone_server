@@ -22,12 +22,6 @@ public class PinController {
         return pinService.findPinByID(id);
     }
 
-    // pin의 댓글 가져오기 api
-    @GetMapping("/pin/comment/{id}")
-    public List<Comments> pinComment(@PathVariable Long id){
-        return pinService.findCommentById(id);
-    }
-
     //pin 생성 api
     @PostMapping("/user/pin")
     public Pin createPin(@RequestBody PinRequestDto pinRequestDto){

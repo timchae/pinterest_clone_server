@@ -1,6 +1,7 @@
 package com.clone.pinterest.domain;
 
 
+import com.clone.pinterest.dto.CommentRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -25,4 +26,15 @@ public class Comments {
     @ManyToOne
     private Pin pin;
 
+    @Column(nullable = false)
+    private Boolean like = Boolean.FALSE;
+
+    public Comments(CommentRequestDto commentRequestDto, Pin pin) {
+        this.commentContents = commentRequestDto.getCommentContent();
+        this.pin = pin;
+    }
+
+    public void edit(CommentRequestDto commentRequestDto) {
+        this.commentContents = commentRequestDto.getCommentContent();
+    }
 }

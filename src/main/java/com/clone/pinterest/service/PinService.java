@@ -31,11 +31,6 @@ public class PinService {
         return pin;
     }
 
-    // pin의 댓글 찾기
-    public List<Comments> findCommentById(Long pinId) {
-        return commentsRepository.findAllByPin_PinId(pinId);
-    }
-
     // pin 내용 수정
     @Transactional
     public Pin editPin(Long id, PinRequestDto pinRequestDto) {
