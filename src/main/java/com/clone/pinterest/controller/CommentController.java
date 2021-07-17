@@ -3,8 +3,11 @@ package com.clone.pinterest.controller;
 import com.clone.pinterest.domain.Comments;
 import com.clone.pinterest.dto.request.CommentRequestDto;
 import com.clone.pinterest.dto.response.CommentResponseDto;
+import com.clone.pinterest.security.UserDetailsImpl;
 import com.clone.pinterest.service.CommentService;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,27 +20,31 @@ public class CommentController {
 
 
     // pin의 댓글 가져오기 api
-    @GetMapping("/pin/comment/{id}")
-    public List<CommentResponseDto> pinComment(@PathVariable Long id){
-        return commentService.findComment(id);
+    @ApiOperation(value = "핀의 댓글 가져오지")
+    @GetMapping("/pin/comment/{pinid}")
+    public List<CommentResponseDto> pinComment(@PathVariable(name = "pinid") Long id, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        return commentService.findComment(id, userDetails.getUser());
     }
 
 
     // pin 댓글 작성
-    @PostMapping("/pin/comment/{id}")
-    public Comments createComment(@PathVariable Long id, @RequestBody CommentRequestDto commentRequestDto){
-        return commentService.createComment(id, commentRequestDto);
+    @ApiOperation(value = "핀에 댓글 작성")
+    @PostMapping("/pin/comment/{pinid}")
+    public Comments createComment(@PathVariable(name = "pinid") Long id, @RequestBody CommentRequestDto commentRequestDto,@AuthenticationPrincipal UserDetailsImpl userDetails){
+        return commentService.createComment(id, commentRequestDto, userDetails.getUser());
     }
 
     // pin 댓글 삭제
-    @DeleteMapping("/pin/comment/{id}")
-    public Long deleteComment(@PathVariable Long id){
-        return commentService.deleteComment(id);
+    @ApiOperation(value = "핀 댓글 삭제")
+    @DeleteMapping("/pin/comment/{commentid}")
+    public Long deleteComment(@PathVariable(name = "commentid") Long id,@AuthenticationPrincipal UserDetailsImpl userDetails){
+        return commentService.deleteComment(id, userDetails.getUser());
     }
 
     // pin 댓글 수정
-    @PutMapping("/pin/comment/{id]")
-    public Comments editComment(@PathVariable Long id,@RequestBody CommentRequestDto commentRequestDto){
+    @ApiOperation(value = "핀 댓글 수정")
+    @PutMapping("/pin/comment/{commentid}")
+    public Comments editComment(@PathVariable(name = "commentid") Long id,@RequestBody CommentRequestDto commentRequestDto){
         return commentService.editComment(id, commentRequestDto);
     }
 
