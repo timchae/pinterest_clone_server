@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @Getter
-public class Board {
+public class Board extends Timestamped {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
