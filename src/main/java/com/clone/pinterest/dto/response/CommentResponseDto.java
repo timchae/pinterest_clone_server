@@ -15,13 +15,13 @@ public class CommentResponseDto {
     private String commentContents;
     private Long likeNum;
     private User user;
-    private Pin pin;
+    private Long pinId;
     private Boolean liken = Boolean.FALSE;
 
-    public CommentResponseDto(Comments comment,Long count,boolean liken) {
+    public CommentResponseDto(Comments comment,Long pinId,Long count,boolean liken) {
         this.commentContents = comment.getCommentContents();
         this.commentId = comment.getCommentId();
-        this.pin = comment.getPin();
+        this.pinId = pinId;
         this.user = comment.getUser();
         this.likeNum = count;
         this.liken = liken;

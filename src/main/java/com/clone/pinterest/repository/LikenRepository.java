@@ -10,5 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface LikenRepository extends JpaRepository<Liken, Long> {
     Liken findByCommentId(Long commentId);
     Long countByCommentId(Long commentId);
-    boolean existsByCommentId(Long commentId);
+    boolean existsByCommentIdAndUserId(Long commentId, Long userId);
+
+    Liken findByCommentIdAndUserId(Long commentId, Long userId);
 }

@@ -35,41 +35,42 @@ public class PinService {
         Pin pin = pinRepository.findById(id).orElseThrow(
                 ()-> new NullPointerException("NO PiN ID")
         );
-        Long commentNum = commentsRepository.countByPin_PinId(pin.getPinId());
+        Long commentNum = commentsRepository.countByPinId(id);
         pin.setCommentNum(commentNum);
         return pin;
     }
 
     // pin 내용 수정
     @Transactional
-    public Pin editPin(Long id, PinRequestDto pinRequestDto) {
+    public Pin editPin(Long id, PinRequestDto pinRequestDto, User user) {
         Pin pin = pinRepository.findById(id).orElseThrow(
                 ()-> new NullPointerException("NO PIN ID")
         );
+        if(!pin.getUser().getUserId().equals(user.getUserId())){
+            throw new IllegalArgumentException("수정 권한이 없습니다.");
+        }
         pin.edit(pinRequestDto);
         return pin;
     }
 
     // pin 삭제
-    public Long deletePin(Long id) {
+    public Long deletePin(Long id, User user) {
+        Pin pin = pinRepository.findById(id).orElseThrow(
+                ()-> new NullPointerException("NO PIN ID")
+        );
+        if(!pin.getUser().getUserId().equals(user.getUserId())){
+            throw new IllegalArgumentException("수정 권한이 없습니다.");
+        }
         pinRepository.deleteById(id);
         return id;
     }
 
     // pin 생성
-    public Pin createPin(PinRequestDto pinRequestDto) {
-        Pin pin = new Pin(pinRequestDto);
+    public Pin createPin(PinRequestDto pinRequestDto, User user) {
+        Pin pin = new Pin(pinRequestDto, user);
         return pinRepository.save(pin);
     }
 
-
-
-    @Transactional
-    public Pin creatPin(PinRequestDto pinRequestDto ) {
-        Pin pin = new Pin(pinRequestDto);
-        pinRepository.save(pin);
-        return pin;
-    }
 
     @Transactional
     public List<PinAllResponseDto> readPin() {

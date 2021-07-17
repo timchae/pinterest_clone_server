@@ -12,7 +12,6 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @Getter
-@Setter
 public class Comments extends Timestamped {
 
 
@@ -23,18 +22,19 @@ public class Comments extends Timestamped {
     @Column(nullable = false)
     private String commentContents;
 
-    @ManyToOne
-    private User user;
+    @Column(nullable = false)
+    private Long pinId;
 
     @ManyToOne
-    private Pin pin;
+    private User user;
 
     @Column(nullable = false)
     private Boolean liken = Boolean.FALSE;
 
-    public Comments(CommentRequestDto commentRequestDto, Pin pin) {
+    public Comments(CommentRequestDto commentRequestDto, Long pinId, User user) {
         this.commentContents = commentRequestDto.getCommentContent();
-        this.pin = pin;
+        this.user = user;
+        this.pinId = pinId;
     }
 
     public void edit(CommentRequestDto commentRequestDto) {

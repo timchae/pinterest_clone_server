@@ -8,5 +8,6 @@ import java.util.List;
 
 @Repository
 public interface PinRepository extends JpaRepository<Pin, Long> {
+
     List<Pin> findAllByOrderByCreatedAtDesc();
 }
