@@ -4,12 +4,15 @@ package com.clone.pinterest.service;
 import com.clone.pinterest.domain.Comments;
 import com.clone.pinterest.domain.Pin;
 import com.clone.pinterest.dto.CommentRequestDto;
+import com.clone.pinterest.dto.CommentResponseDto;
 import com.clone.pinterest.repository.CommentsRepository;
+import com.clone.pinterest.repository.LikenRepository;
 import com.clone.pinterest.repository.PinRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,6 +21,7 @@ public class CommentService {
     
     private final CommentsRepository commentsRepository;
     private final PinRepository pinRepository;
+    private final LikenRepository likenRepository;
 
     // 댓글 생성
     public Comments createComment(Long id, CommentRequestDto commentRequestDto) {
@@ -30,8 +34,17 @@ public class CommentService {
     }
 
     // 댓글 조회
-    public List<Comments> findComment(Long id) {
-        return commentsRepository.findAllByPin_PinId(id);
+    public List<CommentResponseDto> findComment(Long id) {
+        List<Comments> comments = commentsRepository.findAllByPin_PinId(id);
+        List<CommentResponseDto> comments1 = new ArrayList<>();
+        for(Comments comment: comments){
+            Long commentId = comment.getCommentId();
+            Long count = likenRepository.countByCommentId(commentId);
+            boolean liken = likenRepository.existsByCommentId(commentId);
+            CommentResponseDto commentResponseDto = new CommentResponseDto(comment,count,liken);
+            comments1.add(commentResponseDto);
+        }
+        return comments1;
     }
 
     // 댓글 삭제

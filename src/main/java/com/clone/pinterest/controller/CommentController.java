@@ -2,6 +2,7 @@ package com.clone.pinterest.controller;
 
 import com.clone.pinterest.domain.Comments;
 import com.clone.pinterest.dto.CommentRequestDto;
+import com.clone.pinterest.dto.CommentResponseDto;
 import com.clone.pinterest.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class CommentController {
 
     // pin의 댓글 가져오기 api
     @GetMapping("/pin/comment/{id}")
-    public List<Comments> pinComment(@PathVariable Long id){
+    public List<CommentResponseDto> pinComment(@PathVariable Long id){
         return commentService.findComment(id);
     }
 

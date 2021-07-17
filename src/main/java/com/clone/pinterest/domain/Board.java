@@ -1,6 +1,5 @@
 package com.clone.pinterest.domain;
 
-
 import com.clone.pinterest.dto.BoardRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

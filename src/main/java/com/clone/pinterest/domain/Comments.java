@@ -4,6 +4,7 @@ package com.clone.pinterest.domain;
 import com.clone.pinterest.dto.CommentRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @Getter
+@Setter
 public class Comments {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,7 +29,7 @@ public class Comments {
     private Pin pin;
 
     @Column(nullable = false)
-    private Boolean like = Boolean.FALSE;
+    private Boolean liken = Boolean.FALSE;
 
     public Comments(CommentRequestDto commentRequestDto, Pin pin) {
         this.commentContents = commentRequestDto.getCommentContent();
