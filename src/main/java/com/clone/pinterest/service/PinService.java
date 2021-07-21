@@ -76,28 +76,15 @@ public class PinService {
         return pinRepository.save(pin);
     }
 
-    // pin 리스트 조회
-    @Transactional
-    public List<PinAllResponseDto> readPin() {
-        List<Pin> pinList = pinRepository.findAllByOrderByCreatedAtDesc();
-        List<PinAllResponseDto> result = pinList.stream()
-                .map(pin -> new PinAllResponseDto(pin))
-                .collect(Collectors.toList());
-        return result;
-    }
 
     // pin 리스트 페이징 조회
-    @Transactional
-    public Page<Pin> readPinPage(int page, int size, String sortBy, boolean isAsc) {
-        Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
-        Sort sort = Sort.by(direction, sortBy);
-        Pageable pageable = PageRequest.of(page, size, sort);
+    public Page<Pin> readPinPage(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
 
-        return pinRepository.findAll(pageable);
+        return pinRepository.findAllByOrderByCreatedAtDesc(pageable);
     }
 
     // pin 특정 조회(내가 쓴 핀)
-    @Transactional
     public List<MyPinResponseDto> readMyPin(User user) {
         List<Pin> pinList = pinRepository.findAllByUser(user);
         List<MyPinResponseDto> result = pinList.stream()
@@ -107,7 +94,6 @@ public class PinService {
     }
 
     // pin 검색 (pinTitle)
-    @Transactional
     public List<PinSearchResponseDto> readSearchPin(String keyword) {
         List<Pin> pins = pinRepository.findByPinTitleContaining(keyword);
         List<PinSearchResponseDto> pinSearchResponseDtos = new ArrayList<>();
