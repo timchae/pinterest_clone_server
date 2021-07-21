@@ -13,4 +13,7 @@ public interface PinRepository extends JpaRepository<Pin, Long> {
     List<Pin> findAllByOrderByCreatedAtDesc();
     List<Pin> findAllByUser(User user);
     List<Pin> findByPinTitleContaining(String keyword);
+    Long countAllByBoard_BoardId(Long boardId);
+    List<Pin> findTop5ByBoard_BoardId(Long boardId);
+
 }

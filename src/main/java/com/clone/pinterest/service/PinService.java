@@ -6,6 +6,7 @@ import com.clone.pinterest.domain.User;
 import com.clone.pinterest.dto.request.PinRequestDto;
 import com.clone.pinterest.dto.response.MyPinResponseDto;
 import com.clone.pinterest.dto.response.PinSearchResponseDto;
+import com.clone.pinterest.repository.BoardRepository;
 import com.clone.pinterest.repository.CommentsRepository;
 import com.clone.pinterest.repository.PinRepository;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,8 @@ public class PinService {
 
     private final PinRepository pinRepository;
     private final CommentsRepository commentsRepository;
+    private final BoardRepository boardRepository;
+
 
     //pin 내용
     public Pin findPinByID(Long id) {
@@ -86,6 +89,7 @@ public class PinService {
         return result;
     }
 
+
     // pin 리스트 페이징 조회
     @Transactional
     public Page<Pin> readPinPage(int page, int size, String sortBy, boolean isAsc) {
@@ -105,6 +109,14 @@ public class PinService {
                 .collect(Collectors.toList());
         return result;
     }
+//    @Transactional
+//    public PinDetailResponseDto readDetail(Long pinId) {
+//        Pin pin = pinRepository.findById(pinId).orElseThrow(
+//                () -> new IllegalArgumentException("해당 아이디가 없습니다."));
+//        pinRepository.findById(pinId);
+//        PinDetailResponseDto pinDetailResponseDto = new PinDetailResponseDto(pin);
+//        return pinDetailResponseDto;
+//    }
 
     // pin 검색 (pinTitle)
     @Transactional
