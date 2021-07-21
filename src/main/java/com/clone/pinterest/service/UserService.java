@@ -52,6 +52,7 @@ public class UserService {
         password = passwordEncoder.encode(password);
 
 //        String defaultUserImage = image URL;  이미지URL 들어갈부분
+
         User user = new User(username, password, userImage);
         userRepository.save(user);
     }
