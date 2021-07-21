@@ -67,12 +67,6 @@ public class PinController {
         return pinService.readMyPin(userDetails.getUser());
     }
 
-    // 핀 특정 조회(내가 쓴 핀)
-//    @GetMapping("/api/pin/{userName}")
-//    public List<MyPinResponseDto> readMyPin(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-//        Long userName = userDetails.getUser().getUserName();
-//        return pinService.readMyPin(userName);
-//    }
 
     // pin 검색 (pinTitle) 
     @GetMapping("/api/pin/search")
