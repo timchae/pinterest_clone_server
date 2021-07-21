@@ -4,6 +4,7 @@ import com.clone.pinterest.domain.Comments;
 import com.clone.pinterest.domain.Pin;
 import com.clone.pinterest.domain.User;
 import com.clone.pinterest.dto.request.PinRequestDto;
+import com.clone.pinterest.repository.BoardRepository;
 import com.clone.pinterest.repository.CommentsRepository;
 import com.clone.pinterest.repository.PinRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +27,9 @@ import java.util.stream.Collectors;
 public class PinService {
 
     private final PinRepository pinRepository;
-
     private final CommentsRepository commentsRepository;
+    private final BoardRepository boardRepository;
+
 
     //pin 내용
     public Pin findPinByID(Long id) {
@@ -81,14 +83,14 @@ public class PinService {
         return result;
     }
 
-    @Transactional
-    public PinDetailResponseDto readDetail(Long pinId) {
-        Pin pin = pinRepository.findById(pinId).orElseThrow(
-                () -> new IllegalArgumentException("해당 아이디가 없습니다."));
-        pinRepository.findById(pinId);
-        PinDetailResponseDto pinDetailResponseDto = new PinDetailResponseDto(pin);
-        return pinDetailResponseDto;
-    }
+//    @Transactional
+//    public PinDetailResponseDto readDetail(Long pinId) {
+//        Pin pin = pinRepository.findById(pinId).orElseThrow(
+//                () -> new IllegalArgumentException("해당 아이디가 없습니다."));
+//        pinRepository.findById(pinId);
+//        PinDetailResponseDto pinDetailResponseDto = new PinDetailResponseDto(pin);
+//        return pinDetailResponseDto;
+//    }
 
 //    @Transactional
 //    public MyPinResponseDto readMyPin(String userName) {

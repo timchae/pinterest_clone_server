@@ -10,4 +10,6 @@ import java.util.List;
 public interface PinRepository extends JpaRepository<Pin, Long> {
 
     List<Pin> findAllByOrderByCreatedAtDesc();
+    Long countAllByBoard_BoardId(Long boardId);
+    List<Pin> findTop5ByBoard_BoardId(Long boardId);
 }
