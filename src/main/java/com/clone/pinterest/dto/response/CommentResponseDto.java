@@ -28,3 +28,5 @@ public class CommentResponseDto {
 
     }
 }
+// 상세핀에 어느유저 어느 보드에 저장했는지
+// 보드 생성 수정

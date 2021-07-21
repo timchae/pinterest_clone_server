@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import com.clone.pinterest.dto.request.PinRequestDto;
 import com.clone.pinterest.dto.response.PinAllResponseDto;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,6 +54,14 @@ public class PinController {
         return pinService.readPin();
     }
 
+
+    // 핀 목록 전체 조회
+    @ApiOperation(value = "메인페이지 핀 전체 조회")
+    @GetMapping("/api/pin/page")
+    public Page<Pin> readPinPage(@RequestParam("page") int page,
+                                               @RequestParam("size") int size) {
+        return pinService.readPinPage(page,size);
+    }
 
     // 핀 특정 조회(내가 쓴 핀)
 //    @GetMapping("/api/pin/{userName}")
