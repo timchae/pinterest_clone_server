@@ -13,7 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Getter
-
 @Setter
 public class Pin extends Timestamped {
 
@@ -38,7 +37,7 @@ public class Pin extends Timestamped {
     private Long commentNum;
 
     @ManyToOne
-    @JoinColumn(name = "USER_id", nullable = true)
+    @JoinColumn(name = "USER_id", nullable = false)
     private User user;
 
     @ManyToMany
@@ -48,13 +47,6 @@ public class Pin extends Timestamped {
     {
         this.pinContent = pinRequestDto.getPinContent();
         this.pinTitle = pinRequestDto.getPinTitle();
-        this.pinImage = pinRequestDto.getPinImage();
-        this.pinUrl = pinRequestDto.getPinUrl();
-    }
-
-    public Pin(PinRequestDto pinRequestDto) {
-        this.pinTitle = pinRequestDto.getPinTitle();
-        this.pinContent = pinRequestDto.getPinContent();
         this.pinImage = pinRequestDto.getPinImage();
         this.pinUrl = pinRequestDto.getPinUrl();
     }

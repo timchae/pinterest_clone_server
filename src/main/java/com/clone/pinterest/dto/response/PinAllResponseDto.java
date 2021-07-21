@@ -1,6 +1,7 @@
 package com.clone.pinterest.dto.response;
 
 import com.clone.pinterest.domain.Pin;
+import com.clone.pinterest.domain.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +17,7 @@ public class PinAllResponseDto {
     private String pinImage;
     private String pinUrl;
     private LocalDateTime createdAt;
+    private User user;
 
     public PinAllResponseDto(Pin pin) {
         this.pinId = pin.getPinId();
@@ -24,5 +26,6 @@ public class PinAllResponseDto {
         this.pinImage = pin.getPinImage();
         this.pinUrl = pin.getPinUrl();
         this.createdAt = pin.getCreatedAt();
+        this.user = pin.getUser();
     }
 }

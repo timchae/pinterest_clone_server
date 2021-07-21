@@ -4,13 +4,14 @@ import com.clone.pinterest.domain.Comments;
 import com.clone.pinterest.domain.Pin;
 import com.clone.pinterest.domain.User;
 import com.clone.pinterest.dto.request.PinRequestDto;
+import com.clone.pinterest.dto.response.MyPinResponseDto;
+import com.clone.pinterest.dto.response.PinSearchResponseDto;
 import com.clone.pinterest.repository.BoardRepository;
 import com.clone.pinterest.repository.CommentsRepository;
 import com.clone.pinterest.repository.PinRepository;
 import lombok.RequiredArgsConstructor;
 import com.clone.pinterest.domain.Pin;
 import com.clone.pinterest.dto.response.PinAllResponseDto;
-import com.clone.pinterest.dto.response.PinDetailResponseDto;
 import com.clone.pinterest.repository.PinRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -22,6 +23,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -77,7 +79,7 @@ public class PinService {
         return pinRepository.save(pin);
     }
 
-
+    // pin 리스트 조회
     @Transactional
     public List<PinAllResponseDto> readPin() {
         List<Pin> pinList = pinRepository.findAllByOrderByCreatedAtDesc();
@@ -86,13 +88,25 @@ public class PinService {
                 .collect(Collectors.toList());
         return result;
     }
+    // pin 리스트 페이징 조회
+    @Transactional
+    public Page<Pin> readPinPage(int page, int size, String sortBy, boolean isAsc) {
+        Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Sort sort = Sort.by(direction, sortBy);
+        Pageable pageable = PageRequest.of(page, size, sort);
 
-
-    public Page<Pin> readPinPage(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
         return pinRepository.findAll(pageable);
     }
 
+    // pin 특정 조회(내가 쓴 핀)
+    @Transactional
+    public List<MyPinResponseDto> readMyPin(User user) {
+        List<Pin> pinList = pinRepository.findAllByUser(user);
+        List<MyPinResponseDto> result = pinList.stream()
+                .map(pin -> new MyPinResponseDto(pin))
+                .collect(Collectors.toList());
+        return result;
+    }
 
 //    @Transactional
 //    public PinDetailResponseDto readDetail(Long pinId) {
@@ -103,12 +117,26 @@ public class PinService {
 //        return pinDetailResponseDto;
 //    }
 
-//    @Transactional
-//    public MyPinResponseDto readMyPin(String userName) {
-//        List<Pin> pinList = userRepository.findAllByUserName(userName);
-//        List<MyPinResponseDto> result = pinList.stream()
-//                .map(pin -> new MyPinResponseDto(pin))
-//                .collect(Collectors.toList());
-//        return result;
-//    }
+    // pin 검색 (pinTitle)
+    @Transactional
+    public List<PinSearchResponseDto> readSearchPin(String keyword) {
+        List<Pin> pins = pinRepository.findByPinTitleContaining(keyword);
+        List<PinSearchResponseDto> pinSearchResponseDtos = new ArrayList<>();
+
+        for (Pin pin : pins ) {
+            PinSearchResponseDto pinSearchResponseDto = new PinSearchResponseDto (
+                    pin.getPinId(),
+                    pin.getUser(),
+                    pin.getPinTitle(),
+                    pin.getPinContent(),
+                    pin.getPinImage(),
+                    pin.getPinUrl(),
+                    pin.getCreatedAt()
+            );
+
+            pinSearchResponseDtos.add(pinSearchResponseDto);
+        }
+
+        return pinSearchResponseDtos;
+    }
 }
