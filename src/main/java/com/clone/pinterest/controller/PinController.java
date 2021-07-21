@@ -49,24 +49,15 @@ public class PinController {
         return pinService.deletePin(id, userDetails.getUser());
     }
 
-    // pin 전체 조회
-    @ApiOperation(value = "메인페이지 핀 전체 조회")
-    @GetMapping("/api/pin")
-    public List<PinAllResponseDto> readPin() {
-        return pinService.readPin();
-    }
-
     // pin 페이지 조회
     @ApiOperation(value = "메인페이지 핀 페이징 조회")
     @GetMapping("/api/pin/page")
     public Page<Pin> readPinPage(
             @RequestParam("page") int page,
-            @RequestParam("size") int size,
-            @RequestParam("sortBy") String sortBy,
-            @RequestParam("isAsc") boolean isAsc
+            @RequestParam("size") int size
     ) {
         page = page - 1;
-        return pinService.readPinPage(page, size, sortBy, isAsc);
+        return pinService.readPinPage(page, size);
     }
 
     // pin 전체 조회 (내가 쓴 글)

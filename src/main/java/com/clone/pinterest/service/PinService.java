@@ -1,6 +1,5 @@
 package com.clone.pinterest.service;
 
-import com.clone.pinterest.domain.Comments;
 import com.clone.pinterest.domain.Pin;
 import com.clone.pinterest.domain.User;
 import com.clone.pinterest.dto.request.PinRequestDto;
@@ -10,15 +9,9 @@ import com.clone.pinterest.repository.BoardRepository;
 import com.clone.pinterest.repository.CommentsRepository;
 import com.clone.pinterest.repository.PinRepository;
 import lombok.RequiredArgsConstructor;
-import com.clone.pinterest.domain.Pin;
-import com.clone.pinterest.dto.response.PinAllResponseDto;
-import com.clone.pinterest.repository.PinRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 import org.springframework.stereotype.Service;
 
@@ -79,27 +72,15 @@ public class PinService {
         return pinRepository.save(pin);
     }
 
-    // pin 리스트 조회
-    @Transactional
-    public List<PinAllResponseDto> readPin() {
-        List<Pin> pinList = pinRepository.findAllByOrderByCreatedAtDesc();
-        List<PinAllResponseDto> result = pinList.stream()
-                .map(pin -> new PinAllResponseDto(pin))
-                .collect(Collectors.toList());
-        return result;
-    }
-    // pin 리스트 페이징 조회
-    @Transactional
-    public Page<Pin> readPinPage(int page, int size, String sortBy, boolean isAsc) {
-        Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
-        Sort sort = Sort.by(direction, sortBy);
-        Pageable pageable = PageRequest.of(page, size, sort);
 
-        return pinRepository.findAll(pageable);
+    // pin 리스트 페이징 조회
+    public Page<Pin> readPinPage(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        return pinRepository.findAllByOrderByCreatedAtDesc(pageable);
     }
 
     // pin 특정 조회(내가 쓴 핀)
-    @Transactional
     public List<MyPinResponseDto> readMyPin(User user) {
         List<Pin> pinList = pinRepository.findAllByUser(user);
         List<MyPinResponseDto> result = pinList.stream()
@@ -108,17 +89,7 @@ public class PinService {
         return result;
     }
 
-//    @Transactional
-//    public PinDetailResponseDto readDetail(Long pinId) {
-//        Pin pin = pinRepository.findById(pinId).orElseThrow(
-//                () -> new IllegalArgumentException("해당 아이디가 없습니다."));
-//        pinRepository.findById(pinId);
-//        PinDetailResponseDto pinDetailResponseDto = new PinDetailResponseDto(pin);
-//        return pinDetailResponseDto;
-//    }
-
     // pin 검색 (pinTitle)
-    @Transactional
     public List<PinSearchResponseDto> readSearchPin(String keyword) {
         List<Pin> pins = pinRepository.findByPinTitleContaining(keyword);
         List<PinSearchResponseDto> pinSearchResponseDtos = new ArrayList<>();
