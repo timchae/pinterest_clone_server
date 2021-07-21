@@ -44,7 +44,7 @@ public class UserService {
                     throw new ApiRequestException("패스워드가 일치하지 않습니다!");
                 }
             } else {
-                throw new ApiRequestException("비밀번호는"+MIN_PASSWORD_LENGTH+"~"+"MAX_PASSWORD_LENGTH"+"자리를 사용해야 합니다.");
+                throw new ApiRequestException("비밀번호는"+MIN_PASSWORD_LENGTH+"~"+MAX_PASSWORD_LENGTH+"자리를 사용해야 합니다.");
             }
         } else {
             throw new ApiRequestException("패스워드를 입력해 주세요.");
