@@ -6,6 +6,7 @@ import com.clone.pinterest.domain.Pin;
 import com.clone.pinterest.domain.User;
 import com.clone.pinterest.dto.request.CommentRequestDto;
 import com.clone.pinterest.dto.response.CommentResponseDto;
+import com.clone.pinterest.exception.ApiRequestException;
 import com.clone.pinterest.repository.CommentsRepository;
 import com.clone.pinterest.repository.LikenRepository;
 import com.clone.pinterest.repository.PinRepository;
@@ -55,7 +56,7 @@ public class CommentService {
                 ()-> new NullPointerException("삭제할 수 없습니다.")
         );
         if(!comments.getUser().getUserId().equals(user.getUserId())){
-            throw new IllegalArgumentException("삭제할 권한이 없습니다.");
+            throw new ApiRequestException("삭제할 권한이 없습니다.");
         }
         commentsRepository.deleteById(id);
         return id;
