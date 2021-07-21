@@ -1,6 +1,5 @@
 package com.clone.pinterest.service;
 
-import com.clone.pinterest.domain.Comments;
 import com.clone.pinterest.domain.Pin;
 import com.clone.pinterest.domain.User;
 import com.clone.pinterest.dto.request.PinRequestDto;
@@ -10,15 +9,9 @@ import com.clone.pinterest.repository.BoardRepository;
 import com.clone.pinterest.repository.CommentsRepository;
 import com.clone.pinterest.repository.PinRepository;
 import lombok.RequiredArgsConstructor;
-import com.clone.pinterest.domain.Pin;
-import com.clone.pinterest.dto.response.PinAllResponseDto;
-import com.clone.pinterest.repository.PinRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 import org.springframework.stereotype.Service;
 
@@ -41,7 +34,7 @@ public class PinService {
     public Pin findPinByID(Long id) {
 
         Pin pin = pinRepository.findById(id).orElseThrow(
-                ()-> new NullPointerException("NO PiN ID")
+                () -> new NullPointerException("NO PiN ID")
         );
         Long commentNum = commentsRepository.countByPinId(id);
         pin.setCommentNum(commentNum);
@@ -52,9 +45,9 @@ public class PinService {
     @Transactional
     public Pin editPin(Long id, PinRequestDto pinRequestDto, User user) {
         Pin pin = pinRepository.findById(id).orElseThrow(
-                ()-> new NullPointerException("NO PIN ID")
+                () -> new NullPointerException("NO PIN ID")
         );
-        if(!pin.getUser().getUserId().equals(user.getUserId())){
+        if (!pin.getUser().getUserId().equals(user.getUserId())) {
             throw new IllegalArgumentException("수정 권한이 없습니다.");
         }
         pin.edit(pinRequestDto);
@@ -64,9 +57,9 @@ public class PinService {
     // pin 삭제
     public Long deletePin(Long id, User user) {
         Pin pin = pinRepository.findById(id).orElseThrow(
-                ()-> new NullPointerException("NO PIN ID")
+                () -> new NullPointerException("NO PIN ID")
         );
-        if(!pin.getUser().getUserId().equals(user.getUserId())){
+        if (!pin.getUser().getUserId().equals(user.getUserId())) {
             throw new IllegalArgumentException("수정 권한이 없습니다.");
         }
         pinRepository.deleteById(id);
@@ -78,7 +71,6 @@ public class PinService {
         Pin pin = new Pin(pinRequestDto, user);
         return pinRepository.save(pin);
     }
-
 
 
     // pin 리스트 페이징 조회
@@ -96,14 +88,6 @@ public class PinService {
                 .collect(Collectors.toList());
         return result;
     }
-//    @Transactional
-//    public PinDetailResponseDto readDetail(Long pinId) {
-//        Pin pin = pinRepository.findById(pinId).orElseThrow(
-//                () -> new IllegalArgumentException("해당 아이디가 없습니다."));
-//        pinRepository.findById(pinId);
-//        PinDetailResponseDto pinDetailResponseDto = new PinDetailResponseDto(pin);
-//        return pinDetailResponseDto;
-//    }
 
     // pin 검색 (pinTitle)
     public List<PinSearchResponseDto> readSearchPin(String keyword) {

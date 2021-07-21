@@ -67,9 +67,11 @@ public class PinController {
         return pinService.readMyPin(userDetails.getUser());
     }
 
+
     // pin 검색 (pinTitle) 
     @GetMapping("/api/pin/search")
     public List<PinSearchResponseDto> readSearchPin(@RequestParam("query") String keyword) {
         return pinService.readSearchPin(keyword);
     }
+
 }
