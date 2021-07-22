@@ -79,7 +79,7 @@ public class PinController {
     // pin 검색 (pinTitle)
     @ApiOperation(value = "핀 검색")
     @GetMapping("/api/pin/search")
-    public List<PinResponseDto> readSearchPin(@RequestParam("query") String keyword) {
-        return pinService.readSearchPin(keyword);
+    public List<PinResponseDto> searchPin(@RequestParam("query") String keyword) {
+        return pinService.searchPin(keyword);
     }
 }
