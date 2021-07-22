@@ -16,13 +16,13 @@ public class LikeService {
 
     private final LikenRepository likenRepository;
 
-    public void addLike(Long commentId, User user) {
+    public void addLike(Long pinId,Long commentId, User user) {
         Long userId = user.getUserId();
         boolean exist = likenRepository.existsByCommentIdAndUserId(commentId,userId);
         if(exist){
-            throw new ApiRequestException("이미 좋아요를 눌렀습니다.");
+            return;
         }
-        Liken liken = new Liken(commentId, user.getUserId());
+        Liken liken = new Liken(pinId, commentId, user.getUserId());
         likenRepository.save(liken);
     }
 

@@ -11,6 +11,7 @@ public interface LikenRepository extends JpaRepository<Liken, Long> {
     Liken findByCommentId(Long commentId);
     Long countByCommentId(Long commentId);
     boolean existsByCommentIdAndUserId(Long commentId, Long userId);
-
+    void deleteAllByCommentId(Long commentId);
     Liken findByCommentIdAndUserId(Long commentId, Long userId);
+    void deleteAllByPinId(Long pinId);
 }

@@ -11,6 +11,9 @@ import com.clone.pinterest.repository.CommentsRepository;
 import com.clone.pinterest.repository.LikenRepository;
 import com.clone.pinterest.repository.PinRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -36,21 +39,21 @@ public class CommentService {
     }
 
     // 댓글 조회
-    public List<CommentResponseDto> findComment(Long id, User user) {
-        List<Comments> comments = commentsRepository.findAllByPinId(id);
-        List<CommentResponseDto> comments1 = new ArrayList<>();
+    public Page<Comments> findComment(int page, int size, Long id, User user) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Comments> comments = commentsRepository.findAllByPinId(id,pageable);
         Long userId = user.getUserId();
         for(Comments comment: comments){
             Long commentId = comment.getCommentId();
             Long count = likenRepository.countByCommentId(commentId);
             boolean liken = likenRepository.existsByCommentIdAndUserId(commentId, userId);
-            CommentResponseDto commentResponseDto = new CommentResponseDto(comment,id,count,liken);
-            comments1.add(commentResponseDto);
+            comment.page(count,liken);
         }
-        return comments1;
+        return comments;
     }
 
     // 댓글 삭제
+    @Transactional
     public Long deleteComment(Long id, User user) {
         Comments comments = commentsRepository.findById(id).orElseThrow(
                 ()-> new NullPointerException("삭제할 수 없습니다.")
@@ -58,6 +61,8 @@ public class CommentService {
         if(!comments.getUser().getUserId().equals(user.getUserId())){
             throw new ApiRequestException("삭제할 권한이 없습니다.");
         }
+
+        likenRepository.deleteAllByCommentId(id);
         commentsRepository.deleteById(id);
         return id;
     }

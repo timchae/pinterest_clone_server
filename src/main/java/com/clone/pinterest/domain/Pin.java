@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Time;
 import java.util.List;
+
 
 @NoArgsConstructor
 @Entity
@@ -40,7 +40,9 @@ public class Pin extends Timestamped {
     @JoinColumn(name = "USER_id", nullable = false)
     private User user;
 
+
     @ManyToMany
+    @Column(nullable = false)
     private List<Board> board;
 
     public void edit(PinRequestDto pinRequestDto)
@@ -57,6 +59,14 @@ public class Pin extends Timestamped {
         this.pinImage = pinRequestDto.getPinImage();
         this.pinUrl = pinRequestDto.getPinUrl();
         this.user = user;
+    }
+
+    public void setBoard(Board board) {
+        this.board.add(board);
+    }
+
+    public void addBoard(Board board){
+        this.board.add(board);
     }
 }
 

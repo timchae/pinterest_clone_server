@@ -25,8 +25,8 @@ public class BoardController {
     // 보드 생성
     @ApiOperation(value = "보드 생성")
     @PostMapping("/board")
-    public Board createBoard(@RequestBody BoardRequestDto boardRequestDto){
-        return boardService.createBoard(boardRequestDto);
+    public BoardResponseDto createBoard(@RequestBody BoardRequestDto boardRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        return boardService.createBoard(boardRequestDto, userDetails.getUser());
     }
 
     // 보드 가져오기
@@ -36,7 +36,7 @@ public class BoardController {
         return boardService.getBoard(userDetails.getUser());
     }
 
-    //보드에 핀 추가
+
 
 
 }
