@@ -1,9 +1,11 @@
 package com.clone.pinterest.dto.response;
 
-import com.clone.pinterest.domain.Board;
+import com.clone.pinterest.domain.Pin;
 import com.clone.pinterest.domain.User;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -14,20 +16,16 @@ public class PinResponseDto {
     private String pinContent;
     private String pinImage;
     private String pinUrl;
-    private Long commentNum;
+    private LocalDateTime createdAt;
     private User user;
-    private Board board;
 
-
-
-    public PinResponseDto(Board board, String pinTitle, String pinContent, User user, Long pinId, String pinImage, String pinUrl, Long commentNum) {
-        this.board = board;
-        this.pinContent =pinContent;
-        this.pinImage = pinImage;
-        this.pinTitle = pinTitle;
-        this.pinUrl = pinUrl;
-        this.pinId = pinId;
-        this.commentNum= commentNum;
-        this.user = user;
+    public PinResponseDto(Pin pin) {
+        this.pinId = pin.getPinId();
+        this.pinTitle = pin.getPinTitle();
+        this.pinContent = pin.getPinContent();
+        this.pinImage = pin.getPinImage();
+        this.pinUrl = pin.getPinUrl();
+        this.createdAt = pin.getCreatedAt();
+        this.user = pin.getUser();
     }
 }
