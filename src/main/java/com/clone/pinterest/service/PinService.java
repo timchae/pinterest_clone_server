@@ -111,7 +111,7 @@ public class PinService {
     }
 
     // pin 검색 (pinTitle)
-    public List<PinResponseDto> readSearchPin(String keyword) {
+    public List<PinResponseDto> searchPin(String keyword) {
         List<Pin> pinList = pinRepository.findByPinTitleContaining(keyword);
         List<PinResponseDto> result = pinList.stream()
                 .map(pin -> new PinResponseDto(pin))
