@@ -24,6 +24,9 @@ public class UserService {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtTokenProvider jwtTokenProvider;
 
+    private static final int MIN_PASSWORD_LENGTH = 6;
+    private static final int MAX_PASSWORD_LENGTH = 20;
+
     public void registerUser(SignupRequestDto signupRequestDto){
         String username = signupRequestDto.getUserName();
 
@@ -36,12 +39,12 @@ public class UserService {
         String passwordCheck = signupRequestDto.getCheckPassword();
 
         if (!password.isEmpty() && !passwordCheck.isEmpty()) {
-            if (password.length() >= 6 && password.length() <= 20) {
+            if (password.length() >= MIN_PASSWORD_LENGTH && password.length() <= MAX_PASSWORD_LENGTH) {
                 if (!password.equals(passwordCheck)) {
                     throw new ApiRequestException("패스워드가 일치하지 않습니다!");
                 }
             } else {
-                throw new ApiRequestException("비밀번호는  6~20자리를 사용해야 합니다.");
+                throw new ApiRequestException("비밀번호는"+MIN_PASSWORD_LENGTH+"~"+MAX_PASSWORD_LENGTH+"자리를 사용해야 합니다.");
             }
         } else {
             throw new ApiRequestException("패스워드를 입력해 주세요.");
