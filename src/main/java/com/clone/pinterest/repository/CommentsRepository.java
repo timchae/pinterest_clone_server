@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface CommentsRepository extends JpaRepository<Comments, Long> {
 
-    Page<Comments> findAllByPinId(Long pinId, Pageable pageable);
+    Page<Comments> findAllByPinIdOrderByCreatedAtDesc(Long pinId, Pageable pageable);
     Long countByPinId(Long pinId);
     void deleteAllByPinId(Long pinId);
 }

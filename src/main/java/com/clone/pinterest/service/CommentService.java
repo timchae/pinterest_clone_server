@@ -41,7 +41,7 @@ public class CommentService {
     // 댓글 조회
     public Page<Comments> findComment(int page, int size, Long id, User user) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<Comments> comments = commentsRepository.findAllByPinId(id,pageable);
+        Page<Comments> comments = commentsRepository.findAllByPinIdOrderByCreatedAtDesc(id,pageable);
         Long userId = user.getUserId();
         for(Comments comment: comments){
             Long commentId = comment.getCommentId();
