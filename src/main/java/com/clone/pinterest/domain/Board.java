@@ -19,14 +19,12 @@ public class Board extends Timestamped {
     @Column(nullable = false)
     private String boardTitle;
 
-//    @ManyToMany
-//    private List<Pin> pin;
+    @ManyToOne
+    private User user;
 
-    @Column(nullable = false)
-    private Long userId;
-
-    public Board(BoardRequestDto boardRequestDto){
+    public Board(BoardRequestDto boardRequestDto, User user){
         this.boardTitle = boardRequestDto.getBoardTitle();
+        this.user = user;
     }
 
 }

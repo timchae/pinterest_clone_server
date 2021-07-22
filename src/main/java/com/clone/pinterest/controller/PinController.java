@@ -8,7 +8,6 @@ import com.clone.pinterest.service.PinService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import com.clone.pinterest.dto.request.PinRequestDto;
-import com.clone.pinterest.dto.response.PinAllResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -28,17 +27,28 @@ public class PinController {
         return pinService.findPinByID(id);
     }
 
+    //pin 보드에 추가
+    @ApiOperation(value = "핀 보드에 추가{pinId}")
+    @PostMapping("/pin/board/{id}")
+    public Pin addPin(@PathVariable Long id,
+                       @RequestParam("boardId") Long boardId,
+                       @AuthenticationPrincipal UserDetailsImpl userDetails){
+        return pinService.addpin(id, boardId, userDetails.getUser());
+    }
+
+
     //pin 생성 api
-    @ApiOperation(value = "핀 생성하기")
+    @ApiOperation(value = "핀 생성하기{boardId}")
     @PostMapping("/pin")
-    public Pin createPin(@RequestBody PinRequestDto pinRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return pinService.createPin(pinRequestDto, userDetails.getUser());
+    public void createPin(@RequestBody PinRequestDto pinRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        pinService.createPin( pinRequestDto, userDetails.getUser());
     }
 
     // pin 내용 수정 api
     @ApiOperation(value = "핀 내용 수정")
     @PutMapping("/pin/{pinid}")
-    public Pin pinEdit(@PathVariable(name = "pinid") Long id, @RequestBody PinRequestDto pinRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public Pin pinEdit(@PathVariable(name = "pinid") Long id,
+                       @RequestBody PinRequestDto pinRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return pinService.editPin(id, pinRequestDto, userDetails.getUser());
     }
 

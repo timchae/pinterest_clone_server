@@ -20,8 +20,12 @@ public class Liken {
     @Column(nullable = false)
     private Long commentId;
 
-    public Liken(Long commentId, Long userId){
+    @Column(nullable = false)
+    private Long pinId;
+
+    public Liken(Long pinId,Long commentId, Long userId){
         this.commentId = commentId;
         this.userId = userId;
+        this.pinId = pinId;
     }
 }

@@ -20,14 +20,19 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final PinRepository pinRepository;
 
-    public Board createBoard(BoardRequestDto boardRequestDto){
-        Board board = new Board(boardRequestDto);
-        return boardRepository.save(board);
+    public BoardResponseDto createBoard(BoardRequestDto boardRequestDto, User user){
+        Board board = new Board(boardRequestDto, user);
+        board = boardRepository.save(board);
+        System.out.println("boardRequestDto = " + boardRequestDto + ", user = " + user);
+        return new BoardResponseDto(
+                board.getBoardId(),
+                board.getBoardTitle()
+        );
     }
 
     public List<BoardResponseDto> getBoard(User user) {
 
-        List<Board> boards = boardRepository.findAllByUserId(user.getUserId());
+        List<Board> boards = boardRepository.findAllByUser_UserId(user.getUserId());
         List<BoardResponseDto> boardResponseDtos = new ArrayList<>();
 
         for (Board board : boards) {

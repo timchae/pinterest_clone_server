@@ -25,16 +25,26 @@ public class Comments extends Timestamped {
     @Column(nullable = false)
     private Long pinId;
 
+    @Column
+    Long likeNum;
+
     @ManyToOne
     private User user;
 
     @Column(nullable = false)
     private Boolean liken = Boolean.FALSE;
 
+
     public Comments(CommentRequestDto commentRequestDto, Long pinId, User user) {
         this.commentContents = commentRequestDto.getCommentContent();
         this.user = user;
         this.pinId = pinId;
+    }
+
+    public void page(Long count, boolean liken){
+        this.likeNum = count;
+        this.liken = liken;
+
     }
 
     public void edit(CommentRequestDto commentRequestDto) {
