@@ -38,11 +38,13 @@ public class PinController {
 
 
     //pin 생성 api
-    @ApiOperation(value = "핀 생성하기{boardId}")
+    @ApiOperation(value = "핀 생성하기")
     @PostMapping("/pin")
-    public Pin createPin(@RequestBody PinRequestDto pinRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public Pin createPin(@RequestBody PinRequestDto pinRequestDto,
+                         @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return pinService.createPin( pinRequestDto, userDetails.getUser());
     }
+
 
     // pin 내용 수정 api
     @ApiOperation(value = "핀 내용 수정")
