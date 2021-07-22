@@ -1,8 +1,7 @@
 package com.clone.pinterest.controller;
 
 import com.clone.pinterest.domain.Pin;
-import com.clone.pinterest.dto.response.MyPinResponseDto;
-import com.clone.pinterest.dto.response.PinSearchResponseDto;
+import com.clone.pinterest.dto.response.PinResponseDto;
 import com.clone.pinterest.security.UserDetailsImpl;
 import com.clone.pinterest.service.PinService;
 import io.swagger.annotations.ApiOperation;
@@ -73,15 +72,14 @@ public class PinController {
     // pin 전체 조회 (내가 쓴 글)
     @ApiOperation(value = "마이페이지 핀 전체 조회")
     @GetMapping("/api/pin/user")
-    public List<MyPinResponseDto> readMyPin(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public List<PinResponseDto> readMyPin(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         return pinService.readMyPin(userDetails.getUser());
     }
 
-
-    // pin 검색 (pinTitle) 
+    // pin 검색 (pinTitle)
+    @ApiOperation(value = "핀 검색")
     @GetMapping("/api/pin/search")
-    public List<PinSearchResponseDto> readSearchPin(@RequestParam("query") String keyword) {
+    public List<PinResponseDto> readSearchPin(@RequestParam("query") String keyword) {
         return pinService.readSearchPin(keyword);
     }
-
 }
