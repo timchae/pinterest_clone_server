@@ -88,13 +88,13 @@ public class PinService {
 
     // pin 생성
     @Transactional
-    public void createPin(PinRequestDto pinRequestDto, User user) {
+    public Pin createPin(PinRequestDto pinRequestDto, User user) {
         Pin pin = new Pin(pinRequestDto, user);
 //        Board board = boardRepository.findById(boardId).orElseThrow(
 //                ()-> new NullPointerException("No Board")
 //        );
 //        pin.setBoard(board);
-        pinRepository.save(pin);
+        return pinRepository.save(pin);
     }
 
 
